@@ -19,14 +19,18 @@ d.getElementById('submit').addEventListener('click', (e)=>{
         .then(response => response.json())
         .then(response => {
             console.log(response);
+            const logged = false;
             response.forEach(user => {
                 // console.log(user.username);
                 if (data.get('username')===user.username && data.get('password')===user.pass) {
-                    location.href='./sesion.html'
-                }else{
-                    alert('Usuario o contraseña incorrectos')
+                    logged = true;
                 }
             });
+            if (logged) {
+                location.href='./sesion.html'
+            }else{
+                alert('Usuario o contraseña incorrectos')
+            }
         })
 })
 
