@@ -1,31 +1,24 @@
-const d = document;
 
-    // const data = {
-    //     username : '',
-    //     pass: ''
-    
-
-//     data.username = d.getElementById('username').value;
-//     data.pass = d.getElementById('password').value;
-    
-//     return data
-// }
-d.getElementById('submit').addEventListener('click', (e)=>{
+document.getElementById('submit').addEventListener('click', (e)=>{
     e.preventDefault();
     
-    const data = new FormData(d.getElementById('form'));
+    const data = {
+        "name": `${document.getElementById("username").value}`,
+        "pass": `${document.getElementById("password").value}`
+    }
 
-    fetch('https://sqlinj-back-production.up.railway.app/sesion')
+    console.log( JSON.stringify(data), data);
+    fetch('https://sqlinj-back-production.up.railway.app/sesion', {
+        method: "POST",
+        headers: {
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify(data)
+    })
         .then(response => response.json())
         .then(response => {
-            console.log(response);
-            const logged = false;
-            response.forEach(user => {
-                // console.log(user.username);
-                if (data.get('username')===user.username && data.get('password')===user.pass) {
-                    logged = true;
-                }
-            });
+            // console.log(response);
+            let logged = response;
             if (logged) {
                 location.href='./sesion.html'
             }else{
